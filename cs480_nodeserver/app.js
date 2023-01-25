@@ -62,23 +62,23 @@ app.post("/login-user", async (req, res) => {
     }
   }
   res.json({ status: "error", error: "Invalid Password" });
+});
 
-  //To get user data from the database when they logged in successfully
-  app.post("/userData", async (req, res) => {
-    const { token } = req.body;
-    try {
-      const user = jwt.verify(token, JWT_SECRET);
-      console.log(user);
-      const useremail = user.email;
-      User.findOne({ email: useremail })
-        .then((data) => {
-          res.send({ status: "ok", data: data });
-        })
-        .catch((error) => {
-          res.send({ status: "error", data: error });
-        });
-    } catch (error) {}
-  });
+//To get user data from the database when they logged in successfully
+app.post("/userData", async (req, res) => {
+  const { token } = req.body;
+  try {
+    const user = jwt.verify(token, JWT_SECRET);
+    console.log(user);
+    const useremail = user.email;
+    User.findOne({ email: useremail })
+      .then((data) => {
+        res.send({ status: "ok", data: data });
+      })
+      .catch((error) => {
+        res.send({ status: "error", data: error });
+      });
+  } catch (error) {}
 });
 app.listen(4000, () => {
   console.log("Server Started");
