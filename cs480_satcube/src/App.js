@@ -7,15 +7,23 @@ import Signin from "./screens/Signin";
 import SignUp from "./screens/Signup";
 import Dashboard from "./screens/Dashboard";
 import UserInfo from "./screens/UserInfo";
+import Login from "./screens/Signin";
 
 function App() {
+  const isLoggedIn = window.localStorage.getItem("loggedIn");
   return (
     <Router>
       <div className="App">
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Routes>
-              <Route exact path="/" element={<Signin />} />
+              <Route
+                exact
+                path="/"
+                // This one is to verrify if the user is successfully logged in,
+                // if so, we can just show the dashboard, if not, show the sign-in page
+                element={isLoggedIn ? <Dashboard /> : <Signin />}
+              />
               <Route path="/sign-in" element={<Signin />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/dashboard" element={<Dashboard />} />

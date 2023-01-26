@@ -31,7 +31,6 @@ export default class UserInfo extends Component {
       <div>
         <h1>First Name: {this.state.userData.firstName}</h1>
         <h1>Last Name: {this.state.userData.lastName}</h1>
-        <button>Log out</button>
       </div>
     );
   }
