@@ -7,7 +7,7 @@ import Signin from "./screens/Signin";
 import SignUp from "./screens/Signup";
 import Dashboard from "./screens/Dashboard";
 import UserInfo from "./screens/UserInfo";
-import Login from "./screens/Signin";
+import ResetPassword from "./screens/ResetPassword";
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -28,6 +28,7 @@ function App() {
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/userInfo" element={<UserInfo />} />
+              <Route path="/forgot-password" element={<ResetPassword />} />
             </Routes>
           </div>
         </div>

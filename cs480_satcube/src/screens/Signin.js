@@ -82,8 +82,12 @@ export default class Login extends Component {
           Forgot <a href="#">password?</a>
         </p> */}
         <p className="sign-up text-right">
-          Don't have an account? <a href="/sign-up">Create account</a>
+          Don't have an account? <a href="/sign-up">Create account!</a>
         </p>
+        <br />
+        <h3 className="sign-up">
+          Forgot Password? <a href="/forgot-password">Reset Here!</a>
+        </h3>
       </form>
     );
   }
