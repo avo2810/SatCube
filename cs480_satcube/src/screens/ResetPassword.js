@@ -12,7 +12,7 @@ export default class ResetPassword extends Component {
     e.preventDefault();
     const { email } = this.state;
     console.log(email);
-    fetch("http://localhost:4000/", {
+    fetch("http://localhost:4000/forgot-password", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -27,6 +27,7 @@ export default class ResetPassword extends Component {
       .then((res) => res.json())
       .then((data) => {
         console.log(data, "userRegister");
+        alert(data.status);
       });
   }
   render() {
@@ -43,9 +44,9 @@ export default class ResetPassword extends Component {
           />
         </div>
         <div className="d-grid">
-          <buttton type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             Submit
-          </buttton>
+          </button>
         </div>
         <p className="forgot-password text-right">
           <a href="/sign-in">Sign In</a>
