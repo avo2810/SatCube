@@ -31,7 +31,7 @@ require("./userDetail");
 const User = mongoose.model("UserInformation");
 
 app.post("/register", async (request, response) => {
-  const { firstName, lastName, email, password } = request.body;
+  const { firstName, lastName, email, password, userType } = request.body;
 
   const encryptedPassword = await bcrypt.hash(password, 10);
   try {
@@ -44,6 +44,7 @@ app.post("/register", async (request, response) => {
       lastName,
       email,
       password: encryptedPassword,
+      userType,
     });
     response.send({ status: "ok" });
   } catch (error) {
@@ -114,7 +115,7 @@ app.post("/forgot-password", async (req, res) => {
     });
 
     var mailOptions = {
-      from: "thyanh9103@gmail.com",
+      from: "thyanh151203@gmail.com",
       to: "avo20@apu.edu",
       subject: "Password Reset",
       text: link,

@@ -29,8 +29,10 @@ export default class UserInfo extends Component {
   render() {
     return (
       <div>
-        <h1>First Name: {this.state.userData.firstName}</h1>
-        <h1>Last Name: {this.state.userData.lastName}</h1>
+        <h1>Account Information</h1>
+        <h3>First Name: {this.state.userData.firstName}</h3>
+        <h3>Last Name: {this.state.userData.lastName}</h3>
+        <a href="/dashboard">Dashboard</a>
       </div>
     );
   }
