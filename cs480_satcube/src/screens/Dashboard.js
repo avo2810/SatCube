@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import UsersList from "./UsersList";
+import UsersList from "./UserLists";
 
 const Dashboard = () => {
   const [userData, setUserData] = useState("");
@@ -33,15 +33,19 @@ const Dashboard = () => {
     window.location.href = "./sign-in";
   };
   return (
-    <div>
-      <h1>Welcome to SatCube Project</h1>
-      <p>
-        <a href="/userInfo">Account Information</a>
-      </p>
-      <button onClick={logOut} className="btn btn-primary">
-        Log out
-      </button>
-      {admin ? <h1>Welcome Admin</h1> : null}
+    <div className="auth-wrapper">
+      <div className="auth-inner" style={{ width: "auto" }}>
+        <h1>Welcome to SatCube Project</h1>
+        <p>
+          <a href="/userInfo">Account Information</a>
+        </p>
+
+        {admin ? <a href="./user-lists">User Lists</a> : null}
+        <br />
+        <button onClick={logOut} className="btn btn-primary">
+          Log out
+        </button>
+      </div>
     </div>
   );
 };

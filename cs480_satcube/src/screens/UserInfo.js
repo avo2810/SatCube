@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./UserInfo.css";
 
 export default class UserInfo extends Component {
   constructor(props) {
@@ -28,11 +29,14 @@ export default class UserInfo extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>Account Information</h1>
-        <h3>First Name: {this.state.userData.firstName}</h3>
-        <h3>Last Name: {this.state.userData.lastName}</h3>
-        <a href="/dashboard">Dashboard</a>
+      <div className="auth-wrapper">
+        <div className="auth-inner" style={{ width: "auto" }}>
+          <h1>Account Information</h1>
+          <h3>First Name: {this.state.userData.firstName}</h3>
+          <h3>Last Name: {this.state.userData.lastName}</h3>
+          <h3>UserType: {this.state.userData.userType}</h3>
+          <a href="/dashboard">Dashboard</a>
+        </div>
       </div>
     );
   }

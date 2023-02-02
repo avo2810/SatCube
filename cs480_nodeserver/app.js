@@ -188,3 +188,12 @@ app.post("/reset-password/:id/:token", async (req, res) => {
     res.json({ status: "Something Went Wrong" });
   }
 });
+
+app.get("/getAllUsers", async (req, res) => {
+  try {
+    const allUsers = await User.find({});
+    res.send({ status: "ok", data: allUsers });
+  } catch (error) {
+    console.log(error);
+  }
+});
