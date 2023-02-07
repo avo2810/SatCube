@@ -85,3 +85,28 @@ html,
 .text-right {
   text-align: right;
 }
+
+.logo{
+width:500px;
+text-align: center;
+border-radius: 10px;
+
+
+}
+.logo-sm{
+  width: 400px;
+  text-align: center;
+ border-radius: 10px;
+
+}
+
+.logo-wrapper{
+  text-align: center;
+  margin-top: 20px;
+
+}
+
+.logo-wrapper-sm{
+  text-align: center;
+  margin-top: 5px;
+}
