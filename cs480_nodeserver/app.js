@@ -197,3 +197,18 @@ app.get("/getAllUsers", async (req, res) => {
     console.log(error);
   }
 });
+
+app.post("/deleteUser", async(req, res)=> {
+  const {userID} = req.body
+  try {
+    //this function is provided by mongoDB
+    User.deleteOne({
+      _id:userID
+    }, function(err, res) {
+      console.log(err)
+    })
+    res.send({status: "ok", data: "Deleted"})
+  } catch (error) {
+    console.log(error)
+  }
+})
