@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import logo from "../Images/satcube_logo.jpeg";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -43,7 +44,12 @@ const SignUp = () => {
   };
   return (
     <div className="auth-wrapper">
+      <div className="logo-wrapper-sm">
+        <img className="logo-sm" src={logo}/>
+        </div>
+
       <div className="auth-inner">
+        
         <form onSubmit={handleSubmit}>
           <h3>Sign Up</h3>
           <div className="mb-3">

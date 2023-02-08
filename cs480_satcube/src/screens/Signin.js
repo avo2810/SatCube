@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import logo from "../Images/satcube_logo.jpeg";
 
 export default class Login extends Component {
   constructor(props) {
@@ -38,6 +39,9 @@ export default class Login extends Component {
   render() {
     return (
       <div className="auth-wrapper">
+        <div className="logo-wrapper">
+        <img className="logo" src={logo}/>
+        </div>
         <div className="auth-inner">
           <form onSubmit={this.handleSubmit}>
             <h3>Sign In</h3>
