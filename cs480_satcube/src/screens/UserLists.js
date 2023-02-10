@@ -70,9 +70,6 @@ const UsersList = () => {
             })}
           </tbody>
         </table>
-        <a className="btn btn-primary button" href="./dashboard">
-          Return to dashboard
-        </a>
       </div>
     </div>
   );

@@ -1,0 +1,32 @@
+.header {
+    max-width: 60rem;
+    margin: auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    margin-left: 300px;
+  }
+  
+  .list {
+    display: flex;
+    gap: 4rem;
+    list-style-type: none;
+  }
+  
+  .text {
+    text-decoration: none;
+    color: #FFD700;
+  }
+  
+.text:hover,
+  .text:active , .logout:hover{
+    color: var(--color-primary-800);
+    text-decoration: underline;
+  }
+
+.logout {
+  all: unset;
+  margin-right: -40rem;
+  position: fixed;
+  color: #FFD700;
+}

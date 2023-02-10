@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import UsersList from "./UserLists";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [userData, setUserData] = useState("");
@@ -28,24 +28,13 @@ const Dashboard = () => {
         setUserData(data.data);
       });
   }, []);
-  const logOut = () => {
-    window.localStorage.clear();
-    window.location.href = "./sign-in";
-  };
+  
   return (
-    <div className="auth-wrapper">
-      <div className="auth-inner" style={{ width: "auto" }}>
-        <h1>Welcome to SatCube Project</h1>
-        <p>
-          <a href="/userInfo">Account Information</a>
-        </p>
-
-        {admin ? <a href="./user-lists">User Lists</a> : null}
-        <br />
-        <button onClick={logOut} className="btn btn-primary">
-          Log out
-        </button>
-      </div>
+    <div >
+      
+        <h1>Welcome {userData.firstName}</h1>
+       
+        
     </div>
   );
 };
