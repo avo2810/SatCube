@@ -1,6 +1,7 @@
 import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import "@stripe/stripe-js";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import Signin from "./screens/Signin";
@@ -10,6 +11,8 @@ import UserInfo from "./screens/UserInfo";
 import ResetPassword from "./screens/ResetPassword";
 import UserLists from "./screens/UserLists";
 import DashboardRoot from "./screens/DashboardRoot";
+import Success from "./components/Success";
+import Cancel from "./components/Cancel";
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -27,6 +30,8 @@ function App() {
           
             <Route path="/" element={<Dashboard />} />
             <Route path="/userInfo" element={<UserInfo />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/cancel" element={<Cancel />} />
             <Route path="/user-lists" element={<UserLists />} />
           </Route>
           <Route path="/sign-in" element={<Signin />} />

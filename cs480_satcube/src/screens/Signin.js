@@ -40,7 +40,7 @@ export default class Login extends Component {
     return (
       <div className="auth-wrapper">
         <div className="logo-wrapper">
-        <img className="logo" src={logo}/>
+          <img className="logo" src={logo} />
         </div>
         <div className="auth-inner">
           <form onSubmit={this.handleSubmit}>
