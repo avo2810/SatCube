@@ -28,13 +28,88 @@ const Dashboard = () => {
         setUserData(data.data);
       });
   }, []);
-  
+
   return (
-    <div >
-      
-        <h1>Welcome {userData.firstName}</h1>
-       
-        
+    <div className="auth-wrapper" id="table">
+      <div className="auth-inner" style={{ width: "auto" }}>
+        <h1>AMSAT Fox Satellite Telemetry</h1>
+        <table style={{ width: 1200 }}>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Website</th>
+              <th>Other Names</th>
+              <th>Linux Command Line Download</th>
+              <th>Command Line Extract</th>
+              <th>Links to Data Analysis</th>
+            </tr>
+            <tr>
+              <td>FOX1C</td>
+              <td>
+                <a href="https://www.amsat.org/tlm/fox1c/" target={"_blank"}>
+                  https://www.amsat.org/tlm/fox1c/
+                </a>
+              </td>
+              <td>AO-95</td>
+              <td>wget https://www.amsat.org/tlm/fox1c/FOXDB.tar.gz</td>
+              <td>tar -zxvf FOXDB.tar.gz </td>
+              <td>
+                <a href="#" target={"_blank"}>
+                  Link
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>FOX1D</td>
+              <td>
+                <a href="https://www.amsat.org/tlm/fox1d/" target={"_blank"}>
+                  https://www.amsat.org/tlm/fox1d/
+                </a>
+              </td>
+              <td>AO-92</td>
+              <td>wget https://www.amsat.org/tlm/fox1d/FOXDB.tar.gz</td>
+              <td>tar -zxvf FOXDB.tar.gz</td>
+              <td>
+                <a href="#" target={"_blank"}>
+                  Link
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>FOX1E</td>
+              <td>
+                <a href="https://www.amsat.org/tlm/fox1e/" target={"_blank"}>
+                  https://www.amsat.org/tlm/fox1e/
+                </a>
+              </td>
+              <td>AO-109</td>
+              <td>wget https://www.amsat.org/tlm/fox1e/FOXDB.tar.gz</td>
+              <td>tar -zxvf FOXDB.tar.gz</td>
+              <td>
+                <a href="#" target={"_blank"}>
+                  Link
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>RADFXSAT</td>
+              <td>
+                <a href="https://www.amsat.org/tlm/radfxsat/" target={"_blank"}>
+                  https://www.amsat.org/tlm/radfxsat/
+                </a>
+              </td>
+              <td>AO-91 and Fox-1B</td>
+              <td>wget https://www.amsat.org/tlm/radfxsat/FOXDB.tar.gz</td>
+              <td>tar -zxvf FOXDB.tar.gz </td>
+              <td>
+                <a href="#" target={"_blank"}>
+                  Link
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
