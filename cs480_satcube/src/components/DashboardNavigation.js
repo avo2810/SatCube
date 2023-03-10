@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
-import "./DashboardNavigation.css"
+import "./DashboardNavigation.css";
 import React, { useEffect, useState } from "react";
 
-
-
 const MainNavigation = () => {
-    const [admin, setAdmin] = useState(false);
+  const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:4000/userData", {
@@ -26,7 +24,6 @@ const MainNavigation = () => {
         if (data.data.userType == "Super Admin") {
           setAdmin(true);
         }
-
       });
   }, []);
 
@@ -34,18 +31,34 @@ const MainNavigation = () => {
     window.localStorage.clear();
     window.location.href = "./sign-in";
   };
-    return (
-        <header className="header">
-            <nav>
-                <ul className="list">
-                    <li><Link to="/" className="text">Dashboard</Link></li>
-                    <li><Link to="/userInfo" className="text">User Information</Link></li>
-                    {admin ?<li><Link to="/user-lists" className="text">User Lists</Link></li>: null}
-                </ul>
-            </nav>
-        <button onClick={logOut} className="logout">Log Out</button>
-        </header>
-    )
-}
+  return (
+    <header className="header">
+      <nav>
+        <ul className="list">
+          <li>
+            <Link to="/" className="text">
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link to="/userInfo" className="text">
+              User Information
+            </Link>
+          </li>
+          {admin ? (
+            <li>
+              <Link to="/user-lists" className="text">
+                User Lists
+              </Link>
+            </li>
+          ) : null}
+        </ul>
+      </nav>
+      <button onClick={logOut} className="logout">
+        Log Out
+      </button>
+    </header>
+  );
+};
 
-export default MainNavigation
+export default MainNavigation;
