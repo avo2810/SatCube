@@ -1,15 +1,15 @@
 import React, { Component, useEffect, useState } from "react";
 import "./UserLists.css";
-import {faTrash} from "@fortawesome/free-solid-svg-icons"
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const UsersList = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    getAllUsers()
+    getAllUsers();
   }, []);
 
-  const getAllUsers = () =>{
+  const getAllUsers = () => {
     fetch("http://localhost:4000/getAllUsers", {
       method: "GET",
     })
@@ -17,33 +17,34 @@ const UsersList = () => {
       .then((data) => {
         setData(data.data);
       });
-  }
+  };
 
-  const deleteUser =(id, firstName, lastName) =>{
-    if(window.confirm(`Are you sure you want to delete ${firstName} ${lastName}`)) {
+  const deleteUser = (id, firstName, lastName) => {
+    if (
+      window.confirm(`Are you sure you want to delete ${firstName} ${lastName}`)
+    ) {
       fetch("http://localhost:4000/deleteUser", {
-      method: "POST",
-      crossDomain: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        userID: id
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        alert(data.data)
-        getAllUsers()
+        method: "POST",
+        crossDomain: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          userID: id,
+        }),
       })
+        .then((res) => res.json())
+        .then((data) => {
+          alert(data.data);
+          getAllUsers();
+        });
     } else {
-
     }
-  }
+  };
   return (
-    <div className="auth-wrapper">
+    <div className="auth-wrapper" id="table">
       <div className="auth-inner" style={{ width: "auto" }}>
         <h1>Lists of Current Users</h1>
         <table style={{ width: 500 }}>
@@ -63,7 +64,10 @@ const UsersList = () => {
                   <td>{i.email}</td>
                   <td>{i.userType} </td>
                   <td>
-                    <FontAwesomeIcon icon={faTrash} onClick={()=>deleteUser(i._id, i.firstName, i.lastName)}/>
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      onClick={() => deleteUser(i._id, i.firstName, i.lastName)}
+                    />
                   </td>
                 </tr>
               );
