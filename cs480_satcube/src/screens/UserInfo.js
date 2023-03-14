@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./UserInfo.css";
 import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import CheckoutForm from "../components/CheckoutForm";
 
 let stripePromise;
-let key = process.env.REACT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-console.log(key);
 const getStripe = () => {
   if (!stripePromise) {
     //input  stripe key here
-    stripePromise = loadStripe("");
+    stripePromise = loadStripe(
+      "pk_test_51McEfUFqJbr3rUfxvPildIPz8dXuJNXPnKCM33aaBUE2JPgwXfzCE6HWfXQKKVplmqboPck8Y1eYzHk6KdpCHDNX00xCes3PEo"
+    );
   }
 
   return stripePromise;
@@ -16,12 +18,17 @@ const getStripe = () => {
 
 const UserInfo = () => {
   const [userData, setUserData] = useState("");
+  // const [stripePromise, setStripePromise] = useState(null);
+  //   const [clientSecret, setClientSecret] = useState("");
+  //   const publishableKey =
+  //     "pk_test_51McEfUFqJbr3rUfxvPildIPz8dXuJNXPnKCM33aaBUE2JPgwXfzCE6HWfXQKKVplmqboPck8Y1eYzHk6KdpCHDNX00xCes3PEo";
+
   const [stripeError, setStripeError] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
   const item = {
     //input price key here
-    price: "",
+    price: "price_1MeP8qFqJbr3rUfxbIFV0LNa",
     quantity: 1,
   };
 
@@ -37,14 +44,30 @@ const UserInfo = () => {
     console.log("redirectToCheckout");
 
     const stripe = await getStripe();
+
     const { error } = await stripe.redirectToCheckout(checkoutOptions);
     console.log("Stripe checkout error", error);
 
-    if (error) setStripeError(error.message);
+    if (error) {
+      setStripeError(error.message);
+    }
     setLoading(false);
   };
 
   if (stripeError) alert(stripeError);
+  // useEffect(() => {
+  //   setStripePromise(loadStripe(publishableKey));
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:4000/create-payment-intent", {
+  //     method: "POST",
+  //     body: JSON.stringify({}),
+  //   }).then(async (r) => {
+  //     const { clientSecret } = await r.json();
+  //     setClientSecret(clientSecret);
+  //   });
+  // }, []);
 
   useEffect(() => {
     fetch("http://localhost:4000/userData", {
@@ -81,6 +104,11 @@ const UserInfo = () => {
         >
           <p className="text">{isLoading ? "Loading..." : "Subscribe"}</p>
         </button>
+        {/* {clientSecret && stripePromise && (
+          <Elements stripe={stripePromise} options={{ clientSecret }}>
+            <CheckoutForm />
+          </Elements>
+        )} */}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ app.use(express.json());
 const cors = require("cors");
 app.use(cors());
 const bcrypt = require("bcryptjs");
+const { resolve } = require("path");
 
 //import ejs to allow using html in node js
 app.set("view engine", "ejs");
@@ -14,6 +15,17 @@ const jwt = require("jsonwebtoken");
 var nodemailer = require("nodemailer");
 
 const JWT_SECRET = "hsfjsdkwhuwqrhihoiafjja39489ndjNK";
+
+// Set your secret key. Remember to switch to your live secret key in production.
+// See your keys here: https://dashboard.stripe.com/apikeys
+const stripe = require("stripe")(
+  "sk_test_51McEfUFqJbr3rUfxVN5CHSGPjv9p6A3Qmtq6ZoHy8ICsZ1v0c0jod5brSnJU8u5lyUkSIoDZ6jF0P5vebEYUtyUy00KaOKagbP",
+  {
+    apiVersion: "2022-08-01",
+  }
+);
+
+// const setupIntent = await stripe.setupIntents.create({ usage: "on_session" });
 
 const mongoUrl =
   "mongodb+srv://satcube480:CS480capstoneproject@cluster0.76m4eav.mongodb.net/?retryWrites=true&w=majority";
@@ -198,17 +210,41 @@ app.get("/getAllUsers", async (req, res) => {
   }
 });
 
-app.post("/deleteUser", async(req, res)=> {
-  const {userID} = req.body
+app.post("/deleteUser", async (req, res) => {
+  const { userID } = req.body;
   try {
     //this function is provided by mongoDB
-    User.deleteOne({
-      _id:userID
-    }, function(err, res) {
-      console.log(err)
-    })
-    res.send({status: "ok", data: "Deleted"})
+    User.deleteOne(
+      {
+        _id: userID,
+      },
+      function (err, res) {
+        console.log(err);
+      }
+    );
+    res.send({ status: "ok", data: "Deleted" });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-})
+});
+
+app.post("/create-payment-intent", async (req, res) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      currency: "USD",
+      amount: 1599,
+      automatic_payment_methods: { enabled: true },
+    });
+
+    // Send publishable key and PaymentIntent details to client
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (e) {
+    return res.status(400).send({
+      error: {
+        message: e.message,
+      },
+    });
+  }
+});
