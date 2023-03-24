@@ -24,7 +24,6 @@ const Dashboard = () => {
         if (data.data.userType == "Super Admin") {
           setAdmin(true);
         }
-
         setUserData(data.data);
       });
   }, []);
@@ -54,8 +53,11 @@ const Dashboard = () => {
               <td>wget https://www.amsat.org/tlm/fox1c/FOXDB.tar.gz</td>
               <td>tar -zxvf FOXDB.tar.gz </td>
               <td>
-                <a href="#" target={"_blank"}>
-                  Link
+                <a
+                  href="http://localhost:8888/voila/render/fox1c%202018.ipynb"
+                  target="_blank"
+                >
+                  FOX1C
                 </a>
               </td>
             </tr>
@@ -70,8 +72,11 @@ const Dashboard = () => {
               <td>wget https://www.amsat.org/tlm/fox1d/FOXDB.tar.gz</td>
               <td>tar -zxvf FOXDB.tar.gz</td>
               <td>
-                <a href="#" target={"_blank"}>
-                  Link
+                <a
+                  href="http://localhost:8889/voila/render/Fox1d.ipynb"
+                  target="_blank"
+                >
+                  FOX1D
                 </a>
               </td>
             </tr>
@@ -86,8 +91,11 @@ const Dashboard = () => {
               <td>wget https://www.amsat.org/tlm/fox1e/FOXDB.tar.gz</td>
               <td>tar -zxvf FOXDB.tar.gz</td>
               <td>
-                <a href="#" target={"_blank"}>
-                  Link
+                <a
+                  href="http://localhost:8890/voila/render/Fox%201e.ipynb"
+                  target="_blank"
+                >
+                  FOX1E
                 </a>
               </td>
             </tr>

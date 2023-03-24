@@ -5,27 +5,20 @@ app.use(express.json());
 const cors = require("cors");
 app.use(cors());
 const bcrypt = require("bcryptjs");
-const { resolve } = require("path");
 
 //import ejs to allow using html in node js
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
+require("dotenv").config();
 
 const jwt = require("jsonwebtoken");
 var nodemailer = require("nodemailer");
 
-const JWT_SECRET = "hsfjsdkwhuwqrhihoiafjja39489ndjNK";
+// Stripe payment
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const priceId = process.env.PUBLIC_STRIPE_PRICE_ID;
 
-// Set your secret key. Remember to switch to your live secret key in production.
-// See your keys here: https://dashboard.stripe.com/apikeys
-const stripe = require("stripe")(
-  "sk_test_51McEfUFqJbr3rUfxVN5CHSGPjv9p6A3Qmtq6ZoHy8ICsZ1v0c0jod5brSnJU8u5lyUkSIoDZ6jF0P5vebEYUtyUy00KaOKagbP",
-  {
-    apiVersion: "2022-08-01",
-  }
-);
-
-// const setupIntent = await stripe.setupIntents.create({ usage: "on_session" });
+const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 const mongoUrl =
   "mongodb+srv://satcube480:CS480capstoneproject@cluster0.76m4eav.mongodb.net/?retryWrites=true&w=majority";
@@ -39,7 +32,7 @@ mongoose
   })
   .catch((e) => console.log(e));
 
-require("./userDetail");
+require("./models/userDetails");
 const User = mongoose.model("UserInformation");
 
 app.post("/register", async (request, response) => {
@@ -51,12 +44,15 @@ app.post("/register", async (request, response) => {
     if (oldUser) {
       return response.json({ error: "User Exists" });
     }
+
     await User.create({
       firstName,
       lastName,
       email,
       password: encryptedPassword,
       userType,
+      isSubscribed: false,
+      stripeCustomerId: "",
     });
     response.send({ status: "ok" });
   } catch (error) {
@@ -73,6 +69,7 @@ app.post("/login-user", async (req, res) => {
   if (await bcrypt.compare(password, user.password)) {
     const token = jwt.sign({ email: user.email }, JWT_SECRET);
     //successfull
+    console.log(token);
     if (res.status(201)) {
       return res.json({ status: "ok", data: token });
     } else {
@@ -228,23 +225,112 @@ app.post("/deleteUser", async (req, res) => {
   }
 });
 
-app.post("/create-payment-intent", async (req, res) => {
-  try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      currency: "USD",
-      amount: 1599,
-      automatic_payment_methods: { enabled: true },
-    });
+app.post("/create-checkout-session", async (req, res) => {
+  const email = req.body.email;
+  // const user = await User.findOne({ email: email });
 
-    // Send publishable key and PaymentIntent details to client
-    res.send({
-      clientSecret: paymentIntent.client_secret,
-    });
-  } catch (e) {
-    return res.status(400).send({
-      error: {
-        message: e.message,
+  const customer = await stripe.customers.create({
+    email,
+    metadata: {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+    },
+  });
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    mode: "subscription",
+    line_items: [
+      {
+        price: priceId,
+        quantity: 1,
       },
-    });
-  }
+    ],
+    customer: customer.id,
+    success_url: "http://localhost:3000/success",
+    cancel_url: "http://localhost:3000/cancel",
+  });
+
+  res.send({ url: session.url });
 });
+
+//Configure which user is subscribed
+const addSubscription = async (customer) => {
+  const customerEmail = customer.email;
+  const updatedFields = {
+    userType: "Subscribed User",
+    isSubscribed: true,
+    stripeCustomerId: customer.id,
+  };
+  try {
+    await User.findOneAndUpdate(
+      { email: customerEmail },
+      { $set: updatedFields },
+      { new: true }
+    );
+    console.log(`User ${customerEmail} 's subscription updated successfully!`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//Stripe Webhook
+// This is your Stripe CLI webhook secret for testing your endpoint locally.
+let endpointSecret;
+
+app.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  (request, response) => {
+    const sig = request.headers["stripe-signature"];
+
+    let data;
+    let eventType;
+    if (endpointSecret) {
+      let event;
+
+      try {
+        event = stripe.webhooks.constructEvent(
+          request.body,
+          sig,
+          endpointSecret
+        );
+        console.log("Webhook verified");
+      } catch (err) {
+        console.log("Webhokk failed");
+        response.status(400).send(`Webhook Error: ${err.message}`);
+        return;
+      }
+      data = event.data.object;
+      eventType = event.type;
+    } else {
+      data = request.body.data.object;
+      eventType = request.body.type;
+    }
+    // Handle the event
+    switch (eventType) {
+      case "checkout.session.completed":
+        // Payment is successful and the subscription is created.
+        // You should provision the subscription and save the customer ID to your database.
+        stripe.customers
+          .retrieve(data.customer)
+          .then((customer) => {
+            addSubscription(customer);
+          })
+          .catch((err) => console.log(err));
+      case "invoice.paid":
+        // Continue to provision the subscription as payments continue to be made.
+        // Store the status in your database and check when a user accesses your service.
+        // This approach helps you avoid hitting rate limits.
+        break;
+      case "invoice.payment_failed":
+        // The payment failed or the customer does not have a valid payment method.
+        // The subscription becomes past_due. Notify your customer and send them to the
+        // customer portal to update their payment information.
+        break;
+      default:
+      // Unhandled event type
+    }
+    // Return a 200 response to acknowledge receipt of the event
+    response.send().end();
+  }
+);
