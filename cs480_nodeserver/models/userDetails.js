@@ -7,10 +7,12 @@ const UserDetailsSchema = new mongoose.Schema(
     email: { type: String, unique: true },
     password: String,
     userType: String,
+    isSubscribed: { type: Boolean, default: false },
+    stripeCustomerId: String,
   },
   {
     collection: "UserInformation",
   }
 );
 
-mongoose.model("UserInformation", UserDetailsSchema);
+module.exports = mongoose.model("UserInformation", UserDetailsSchema);
