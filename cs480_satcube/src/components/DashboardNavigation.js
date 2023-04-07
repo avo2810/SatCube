@@ -6,7 +6,7 @@ const MainNavigation = () => {
   const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:4000/userData", {
+    fetch("http://localhost:8080/userData", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -36,7 +36,7 @@ const MainNavigation = () => {
       <nav>
         <ul className="list">
           <li>
-            <Link to="/" className="text">
+            <Link to="/dashboard" className="text">
               Dashboard
             </Link>
           </li>

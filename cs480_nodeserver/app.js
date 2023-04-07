@@ -95,9 +95,6 @@ app.post("/userData", async (req, res) => {
       });
   } catch (error) {}
 });
-app.listen(4000, () => {
-  console.log("Server Started");
-});
 
 //Sprint 2
 app.post("/forgot-password", async (req, res) => {
@@ -334,3 +331,7 @@ app.post(
     response.send().end();
   }
 );
+
+app.listen(8080, () => {
+  console.log("Server Started");
+});

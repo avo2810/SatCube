@@ -6,12 +6,12 @@ const UserInfo = () => {
   const [userData, setUserData] = useState("");
   const createSession = async () => {
     axios
-      .post("http://localhost:4000/create-checkout-session", { userData })
+      .post("http://localhost:8080/create-checkout-session", { userData })
       .then((res) => (window.location.href = res.data.url))
       .catch((err) => console.error(err));
   };
   useEffect(() => {
-    fetch("http://localhost:4000/userData", {
+    fetch("http://localhost:8080/userData", {
       method: "POST",
       crossDomain: true,
       headers: {

@@ -2,7 +2,7 @@ import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "@stripe/stripe-js";
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Signin from "./screens/Signin";
 import SignUp from "./screens/Signup";
@@ -21,14 +21,18 @@ function App() {
       <div className="App">
         <Routes>
           <Route
-            exact
             path="/"
             // This one is to verrify if the user is successfully logged in,
             // if so, we can just show the dashboard, if not, show the sign-in page
-            element={isLoggedIn ? <DashboardRoot /> : <Signin />}
+            element={
+              isLoggedIn ? (
+                <DashboardRoot children={<Dashboard />} />
+              ) : (
+                <Signin />
+              )
+            }
           >
-          
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/userInfo" element={<UserInfo />} />
             <Route path="/success" element={<Success />} />
             <Route path="/cancel" element={<Cancel />} />
@@ -36,9 +40,8 @@ function App() {
           </Route>
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/sign-up" element={<SignUp />} />
-          
+
           <Route path="/forgot-password" element={<ResetPassword />} />
-          
         </Routes>
       </div>
     </Router>

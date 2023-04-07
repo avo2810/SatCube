@@ -10,7 +10,7 @@ const UsersList = () => {
   }, []);
 
   const getAllUsers = () => {
-    fetch("http://localhost:4000/getAllUsers", {
+    fetch("http://localhost:8080/getAllUsers", {
       method: "GET",
     })
       .then((res) => res.json())
@@ -23,7 +23,7 @@ const UsersList = () => {
     if (
       window.confirm(`Are you sure you want to delete ${firstName} ${lastName}`)
     ) {
-      fetch("http://localhost:4000/deleteUser", {
+      fetch("http://localhost:8080/deleteUser", {
         method: "POST",
         crossDomain: true,
         headers: {
