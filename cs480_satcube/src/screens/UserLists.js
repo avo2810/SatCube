@@ -1,7 +1,5 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UserLists.css";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const UsersList = () => {
   const [data, setData] = useState([]);
@@ -44,36 +42,94 @@ const UsersList = () => {
     }
   };
   return (
-    <div className="auth-wrapper" id="table">
-      <div className="auth-inner" style={{ width: "auto" }}>
-        <h1>Lists of Current Users</h1>
-        <table style={{ width: 500 }}>
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>User Type</th>
-              <th>Delete Account</th>
-            </tr>
-            {data.map((i) => {
-              return (
-                <tr>
-                  <td>
-                    {i.firstName} {i.lastName}
-                  </td>
-                  <td>{i.email}</td>
-                  <td>{i.userType} </td>
-                  <td>
-                    <FontAwesomeIcon
-                      icon={faTrash}
-                      onClick={() => deleteUser(i._id, i.firstName, i.lastName)}
-                    />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+    // <div className="auth-wrapper" id="table">
+    //   <div className="auth-inner" style={{ width: "auto" }}>
+    //     <h1>Lists of Current Users</h1>
+    //     <table style={{ width: 500 }}>
+    //       <tbody>
+    //         <tr>
+    //           <th>Name</th>
+    //           <th>Email</th>
+    //           <th>User Type</th>
+    //           <th>Delete Account</th>
+    //         </tr>
+    // {data.map((i) => {
+    //   return (
+    //     <tr>
+    //       <td>
+    //         {i.firstName} {i.lastName}
+    //       </td>
+    //       <td>{i.email}</td>
+    //       <td>{i.userType} </td>
+    //       <td>
+    //         <FontAwesomeIcon
+    //           icon={faTrash}
+    //           onClick={() => deleteUser(i._id, i.firstName, i.lastName)}
+    //         />
+    //       </td>
+    //     </tr>
+    //   );
+    // })}
+    //       </tbody>
+    //     </table>
+    //   </div>
+    // </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="main-box clearfix">
+            <div className="table-responsive">
+              <h1>Lists of Current Users</h1>
+              <table className="table user-list">
+                <thead className="header-text">
+                  <tr>
+                    <th>
+                      <span>User</span>
+                    </th>
+                    <th>
+                      <span>Email</span>
+                    </th>
+                    <th>
+                      <span>Delete Account</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((i) => {
+                    return (
+                      <tr>
+                        <td>
+                          <img
+                            src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                            alt=""
+                          />
+                          <p className="user-link">
+                            {i.firstName} {i.lastName}
+                          </p>
+                          <span className="user-subhead">{i.userType}</span>
+                        </td>
+                        <td>{i.email}</td>
+                        <td>
+                          <button
+                            className="table-link danger"
+                            onClick={() =>
+                              deleteUser(i._id, i.firstName, i.lastName)
+                            }
+                          >
+                            <span className="fa-stack">
+                              <i className="fa fa-square fa-stack-2x"></i>
+                              <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                            </span>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

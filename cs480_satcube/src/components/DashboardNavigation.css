@@ -16,8 +16,9 @@
 
 .text {
   text-decoration: none;
-  color: #ffd700;
-  font-size: larger;
+  color: #0073b7;
+  font-weight: 700;
+  font-size: 22px;
 }
 
 .text:hover,
@@ -29,8 +30,9 @@
 
 .logout {
   all: unset;
-  margin-right: -43rem;
+  margin-right: -47rem;
   position: fixed;
-  color: #ffd700;
-  font-size: larger;
+  color: #0073b7;
+  font-weight: 700;
+  font-size: 22px;
 }
