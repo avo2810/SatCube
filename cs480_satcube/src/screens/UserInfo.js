@@ -3,8 +3,11 @@ import "./UserInfo.css";
 import axios from "axios";
 
 const UserInfo = () => {
-  const [regularUser, setRegularUser] = useState(false);
   const [userData, setUserData] = useState("");
+  const [regularUser, setRegularUser] = useState(false);
+  const [subscribedUser, setSubscribedUser] = useState(false);
+  const [admin, setAdmin] = useState(false);
+
   const createSession = async () => {
     axios
       .post("http://localhost:8080/create-checkout-session", { userData })
@@ -28,8 +31,16 @@ const UserInfo = () => {
       .then((data) => {
         console.log(data, "userData");
         setUserData(data.data);
+
+        //Identify the type of user to configure the subscription accordingly
         if (data.data.userType == "Regular User") {
           setRegularUser(true);
+        }
+        if (data.data.userType == "Subscribed User") {
+          setSubscribedUser(true);
+        }
+        if (data.data.userType == "Super Admin") {
+          setAdmin(true);
         }
       });
   }, []);
@@ -128,6 +139,35 @@ const UserInfo = () => {
                           Click here to Subscribe
                         </button>
                       </td>
+                    </tr>
+                  ) : null}
+                  {subscribedUser ? (
+                    <tr>
+                      <td>
+                        <strong>
+                          <span className="glyphicon glyphicon-envelope text-primary"></span>
+                          Subscribe Status
+                        </strong>
+                      </td>
+                      <td className="text-primary">
+                        <button
+                          className="btn btn-link"
+                          onClick={() => createSession()}
+                        >
+                          Click here to Unsubscribe
+                        </button>
+                      </td>
+                    </tr>
+                  ) : null}
+                  {admin ? (
+                    <tr>
+                      <td>
+                        <strong>
+                          <span className="glyphicon glyphicon-envelope text-primary"></span>
+                          Subscribe Status
+                        </strong>
+                      </td>
+                      <td className="text-primary">Owner</td>
                     </tr>
                   ) : null}
                 </tbody>
