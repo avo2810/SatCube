@@ -44,20 +44,8 @@ const UserInfo = () => {
         }
       });
   }, []);
-  return (
-    // <div classNameName="auth-wrapper"
-    //   <div classNameName="auth-inner" style={{ width: "auto" }}>
-    //     <h1>Account Information</h1>
-    //     <h3>First Name: {userData.firstName}</h3>
-    //     <h3>Last Name: {userData.lastName}</h3>
-    //     <h3>Email: {userData.email}</h3>
-    //     <h3>UserType: {userData.userType}</h3>
-    // <button classNameName="checkout-button" onClick={() => createSession()}>
-    //   Subscribe
-    // </button>
-    //   </div>
-    // </div>
 
+  return (
     <div className="container bootstrap snippets bootdey">
       <div className="panel-body inf-content">
         <div className="row">

@@ -34,7 +34,7 @@
   all: unset;
   position: absolute;
   top: 50%;
-  right: 4rem;
+  right: 4.5rem;
   transform: translateY(-50%);
   color: #0073b7;
   font-weight: 700;

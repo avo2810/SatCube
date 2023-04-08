@@ -3,6 +3,9 @@ import "./UserLists.css";
 
 const UsersList = () => {
   const [data, setData] = useState([]);
+  const [regularUser, setRegularUser] = useState(false);
+  const [subscribedUser, setSubscribedUser] = useState(false);
+  const [admin, setAdmin] = useState(false);
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -14,6 +17,17 @@ const UsersList = () => {
       .then((res) => res.json())
       .then((data) => {
         setData(data.data);
+
+        //Identify the type of user to configure the subscription accordingly
+        if (data.data.userType == "Regular User") {
+          setRegularUser(true);
+        }
+        if (data.data.userType == "Subscribed User") {
+          setSubscribedUser(true);
+        }
+        if (data.data.userType == "Super Admin") {
+          setAdmin(true);
+        }
       });
   };
 
@@ -42,38 +56,6 @@ const UsersList = () => {
     }
   };
   return (
-    // <div className="auth-wrapper" id="table">
-    //   <div className="auth-inner" style={{ width: "auto" }}>
-    //     <h1>Lists of Current Users</h1>
-    //     <table style={{ width: 500 }}>
-    //       <tbody>
-    //         <tr>
-    //           <th>Name</th>
-    //           <th>Email</th>
-    //           <th>User Type</th>
-    //           <th>Delete Account</th>
-    //         </tr>
-    // {data.map((i) => {
-    //   return (
-    //     <tr>
-    //       <td>
-    //         {i.firstName} {i.lastName}
-    //       </td>
-    //       <td>{i.email}</td>
-    //       <td>{i.userType} </td>
-    //       <td>
-    //         <FontAwesomeIcon
-    //           icon={faTrash}
-    //           onClick={() => deleteUser(i._id, i.firstName, i.lastName)}
-    //         />
-    //       </td>
-    //     </tr>
-    //   );
-    // })}
-    //       </tbody>
-    //     </table>
-    //   </div>
-    // </div>
     <div className="container">
       <div className="row">
         <div className="col-lg-12">
@@ -88,6 +70,9 @@ const UsersList = () => {
                     </th>
                     <th>
                       <span>Email</span>
+                    </th>
+                    <th>
+                      <span>Subscription Status</span>
                     </th>
                     <th>
                       <span>Delete Account</span>
@@ -109,6 +94,18 @@ const UsersList = () => {
                           <span className="user-subhead">{i.userType}</span>
                         </td>
                         <td>{i.email}</td>
+
+                        <td style={{ textAlign: "center" }}>
+                          {i.userType === "Regular User" && (
+                            <span style={{ fontWeight: "normal" }}>None</span>
+                          )}
+                          {i.userType === "Subscribed User" && (
+                            <span style={{ fontWeight: "normal" }}>Yes</span>
+                          )}
+                          {i.userType === "Super Admin" && (
+                            <span style={{ fontWeight: "normal" }}>Owner</span>
+                          )}
+                        </td>
                         <td>
                           <button
                             className="table-link danger"
