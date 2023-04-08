@@ -3,9 +3,7 @@ import "./UserLists.css";
 
 const UsersList = () => {
   const [data, setData] = useState([]);
-  const [regularUser, setRegularUser] = useState(false);
-  const [subscribedUser, setSubscribedUser] = useState(false);
-  const [admin, setAdmin] = useState(false);
+
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -17,17 +15,6 @@ const UsersList = () => {
       .then((res) => res.json())
       .then((data) => {
         setData(data.data);
-
-        //Identify the type of user to configure the subscription accordingly
-        if (data.data.userType == "Regular User") {
-          setRegularUser(true);
-        }
-        if (data.data.userType == "Subscribed User") {
-          setSubscribedUser(true);
-        }
-        if (data.data.userType == "Super Admin") {
-          setAdmin(true);
-        }
       });
   };
 
