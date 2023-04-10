@@ -45,6 +45,8 @@ const UserInfo = () => {
       });
   }, []);
 
+  const cancelSubscription = async () => {};
+
   return (
     <div className="container bootstrap snippets bootdey">
       <div className="panel-body inf-content">
@@ -140,7 +142,7 @@ const UserInfo = () => {
                       <td className="text-primary">
                         <button
                           className="btn btn-link"
-                          onClick={() => createSession()}
+                          onClick={() => cancelSubscription()}
                         >
                           Click here to Unsubscribe
                         </button>

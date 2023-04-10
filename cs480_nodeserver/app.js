@@ -224,7 +224,6 @@ app.post("/deleteUser", async (req, res) => {
 
 app.post("/create-checkout-session", async (req, res) => {
   const email = req.body.email;
-  // const user = await User.findOne({ email: email });
 
   const customer = await stripe.customers.create({
     email,
