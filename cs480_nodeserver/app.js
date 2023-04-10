@@ -331,6 +331,65 @@ app.post(
   }
 );
 
+// app.post("/cancel-subscription", async (req, res) => {
+//   const { stripeCustomerId, email } = req.body;
+
+//   try {
+//     const user = await stripe.customers.retrieve(stripeCustomerId);
+
+//     if (!user.subscriptions || user.subscriptions.data.length === 0) {
+//       return res.status(400).send("Customer has no active subscriptions");
+//     }
+
+//     const subscriptionId = user.subscriptions.data[0].id;
+
+//     await stripe.subscriptions.del(subscriptionId, { at_period_end: true });
+
+//     const updatedFields = {
+//       userType: "Regular User",
+//       isSubscribed: false,
+//     };
+
+//     await User.findOneAndUpdate(
+//       { email },
+//       { $set: updatedFields },
+//       { new: true }
+//     );
+
+//     res.send("Subscription canceled successfully");
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Something went wrong, please try again later");
+//   }
+// });
+
+app.post("/cancel-subscription", async (req, res) => {
+  const customerID = req.body.stripeCustomerId;
+  const email = req.body.email;
+
+  const subscriptions = await stripe.subscriptions.list({
+    customer: customerID,
+    status: "active",
+    limit: 1,
+  });
+
+  const sub = subscriptions.data[0].id;
+
+  await stripe.subscriptions.update(sub, { cancel_at_period_end: true });
+
+  const updatedFields = {
+    userType: "Regular User",
+    isSubscribed: false,
+  };
+  await User.findOneAndUpdate(
+    { email },
+    { $set: updatedFields },
+    { new: true }
+  );
+  // Send a success response
+  res.send("Subscription cancelled successfully");
+});
+
 app.listen(8080, () => {
   console.log("Server Started");
 });

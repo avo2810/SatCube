@@ -33,19 +33,35 @@ const UserInfo = () => {
         setUserData(data.data);
 
         //Identify the type of user to configure the subscription accordingly
-        if (data.data.userType == "Regular User") {
+        if (data.data.userType === "Regular User") {
           setRegularUser(true);
         }
-        if (data.data.userType == "Subscribed User") {
+        if (data.data.userType === "Subscribed User") {
           setSubscribedUser(true);
         }
-        if (data.data.userType == "Super Admin") {
+        if (data.data.userType === "Super Admin") {
           setAdmin(true);
         }
       });
   }, []);
 
-  const cancelSubscription = async () => {};
+  const cancelSubscription = async () => {
+    const confirmation = window.confirm(
+      "Are you sure you want to cancel your subscription?"
+    );
+    if (confirmation) {
+      axios
+        .post("http://localhost:8080/cancel-subscription", {
+          stripeCustomerId: userData.stripeCustomerId,
+          email: userData.email,
+        })
+        .then((res) => {
+          alert("Subscription successfully canceled.");
+          window.location.reload();
+        })
+        .catch((err) => console.error(err));
+    }
+  };
 
   return (
     <div className="container bootstrap snippets bootdey">
