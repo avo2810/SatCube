@@ -95,9 +95,6 @@ app.post("/userData", async (req, res) => {
       });
   } catch (error) {}
 });
-app.listen(4000, () => {
-  console.log("Server Started");
-});
 
 //Sprint 2
 app.post("/forgot-password", async (req, res) => {
@@ -227,7 +224,6 @@ app.post("/deleteUser", async (req, res) => {
 
 app.post("/create-checkout-session", async (req, res) => {
   const email = req.body.email;
-  // const user = await User.findOne({ email: email });
 
   const customer = await stripe.customers.create({
     email,
@@ -334,3 +330,34 @@ app.post(
     response.send().end();
   }
 );
+
+app.post("/cancel-subscription", async (req, res) => {
+  const customerID = req.body.stripeCustomerId;
+  const email = req.body.email;
+
+  const subscriptions = await stripe.subscriptions.list({
+    customer: customerID,
+    status: "active",
+    limit: 1,
+  });
+
+  const sub = subscriptions.data[0].id;
+
+  await stripe.subscriptions.update(sub, { cancel_at_period_end: true });
+
+  const updatedFields = {
+    userType: "Regular User",
+    isSubscribed: false,
+  };
+  await User.findOneAndUpdate(
+    { email },
+    { $set: updatedFields },
+    { new: true }
+  );
+  // Send a success response
+  res.send("Subscription cancelled successfully");
+});
+
+app.listen(8080, () => {
+  console.log("Server Started");
+});

@@ -6,7 +6,7 @@ const MainNavigation = () => {
   const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:4000/userData", {
+    fetch("http://localhost:8080/userData", {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -34,29 +34,31 @@ const MainNavigation = () => {
   return (
     <header className="header">
       <nav>
-        <ul className="list">
-          <li>
-            <Link to="/" className="text">
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link to="/userInfo" className="text">
-              User Information
-            </Link>
-          </li>
-          {admin ? (
+        <div className="wrapper">
+          <ul className="list">
             <li>
-              <Link to="/user-lists" className="text">
-                User Lists
+              <Link to="/dashboard" className="text">
+                Dashboard
               </Link>
             </li>
-          ) : null}
-        </ul>
+            <li>
+              <Link to="/userInfo" className="text">
+                User Information
+              </Link>
+            </li>
+            {admin ? (
+              <li>
+                <Link to="/user-lists" className="text">
+                  User Lists
+                </Link>
+              </li>
+            ) : null}
+          </ul>
+          <button onClick={logOut} className="logout">
+            Log Out
+          </button>
+        </div>
       </nav>
-      <button onClick={logOut} className="logout">
-        Log Out
-      </button>
     </header>
   );
 };

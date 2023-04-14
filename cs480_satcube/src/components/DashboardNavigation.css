@@ -4,20 +4,23 @@
   padding: 2rem;
   display: flex;
   justify-content: center;
-  margin-left: 300px;
-  margin-top: 20px;
+  align-items: center;
+  position: relative;
 }
 
 .list {
   display: flex;
-  gap: 4rem;
+  gap: 6rem;
   list-style-type: none;
+  margin-top: 1em;
+  margin-right: 10.5em;
 }
 
 .text {
   text-decoration: none;
-  color: #ffd700;
-  font-size: larger;
+  color: #0073b7;
+  font-weight: 700;
+  font-size: 22px;
 }
 
 .text:hover,
@@ -29,8 +32,11 @@
 
 .logout {
   all: unset;
-  margin-right: -43rem;
-  position: fixed;
-  color: #ffd700;
-  font-size: larger;
+  position: absolute;
+  top: 50%;
+  right: 4.5rem;
+  transform: translateY(-50%);
+  color: #0073b7;
+  font-weight: 700;
+  font-size: 22px;
 }

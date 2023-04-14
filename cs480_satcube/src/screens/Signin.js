@@ -13,7 +13,7 @@ export default class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
-    fetch("http://localhost:4000/login-user", {
+    fetch("http://localhost:8080/login-user", {
       method: "POST",
       crossDomain: true,
       headers: {
