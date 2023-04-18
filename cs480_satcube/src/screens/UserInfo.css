@@ -32,3 +32,20 @@ img {
   font-size: 18px;
   margin-top: 1em;
 }
+
+.table tbody > tr > td {
+  padding: 15px !important;
+}
+
+.image {
+  margin-left: 3.5em;
+  margin-top: 1em;
+}
+
+.image-button {
+  margin-left: 3.5em;
+}
+
+.submit {
+  margin-top: 20px;
+}
