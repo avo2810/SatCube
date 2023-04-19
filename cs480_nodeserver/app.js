@@ -358,6 +358,36 @@ app.post("/cancel-subscription", async (req, res) => {
   res.send("Subscription cancelled successfully");
 });
 
+app.post("/edit-profile", async (req, res) => {
+  const email = req.body.email;
+  const newPassword = req.body.newPassword;
+  const newFirstName = req.body.firstName;
+  const newLastName = req.body.lastName;
+  let updatedFields, encryptedPassword;
+  if (newPassword) {
+    encryptedPassword = await bcrypt.hash(newPassword, 10);
+  }
+  if (!newPassword) {
+    updatedFields = {
+      firstName: newFirstName,
+      lastName: newLastName,
+    };
+  } else {
+    updatedFields = {
+      firstName: newFirstName,
+      lastName: newLastName,
+      password: encryptedPassword,
+    };
+  }
+  await User.findOneAndUpdate(
+    { email },
+    { $set: updatedFields },
+    { new: true }
+  );
+  // Send a success response
+  res.send("Successfully unpdate user information.");
+});
+
 app.listen(8080, () => {
   console.log("Server Started");
 });

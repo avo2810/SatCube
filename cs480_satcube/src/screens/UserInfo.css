@@ -34,7 +34,7 @@ img {
 }
 
 .table tbody > tr > td {
-  padding: 15px !important;
+  padding: 16px !important;
 }
 
 .image {
@@ -48,4 +48,9 @@ img {
 
 .submit {
   margin-top: 20px;
+}
+
+.cancel {
+  margin-top: 20px;
+  margin-left: 3em;
 }
