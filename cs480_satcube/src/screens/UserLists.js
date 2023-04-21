@@ -3,6 +3,11 @@ import "./UserLists.css";
 
 const UsersList = () => {
   const [data, setData] = useState([]);
+  const [userProfileImage, setUserProfileImage] = useState(
+    "https://bootdey.com/img/Content/avatar/avatar7.png"
+  );
+  const initialProfileImage =
+    "https://bootdey.com/img/Content/avatar/avatar7.png";
 
   useEffect(() => {
     getAllUsers();
@@ -42,6 +47,7 @@ const UsersList = () => {
     } else {
     }
   };
+
   return (
     <div className="container">
       <div className="row">
@@ -67,48 +73,53 @@ const UsersList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((i) => {
-                    return (
-                      <tr>
-                        <td>
+                  {data.map((i) => (
+                    <tr>
+                      <td>
+                        {i.profileImage && i.profileImage.url ? (
                           <img
-                            src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                            src={i.profileImage.url}
                             alt=""
-                          />
-                          <p className="user-link">
-                            {i.firstName} {i.lastName}
-                          </p>
-                          <span className="user-subhead">{i.userType}</span>
-                        </td>
-                        <td>{i.email}</td>
-
-                        <td style={{ textAlign: "center" }}>
-                          {i.userType === "Regular User" && (
-                            <span style={{ fontWeight: "normal" }}>None</span>
-                          )}
-                          {i.userType === "Subscribed User" && (
-                            <span style={{ fontWeight: "normal" }}>Yes</span>
-                          )}
-                          {i.userType === "Super Admin" && (
-                            <span style={{ fontWeight: "normal" }}>Owner</span>
-                          )}
-                        </td>
-                        <td>
-                          <button
-                            className="table-link danger"
-                            onClick={() =>
-                              deleteUser(i._id, i.firstName, i.lastName)
+                            onError={() =>
+                              setUserProfileImage(initialProfileImage)
                             }
-                          >
-                            <span className="fa-stack">
-                              <i className="fa fa-square fa-stack-2x"></i>
-                              <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                            </span>
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                          />
+                        ) : (
+                          <img src={initialProfileImage} alt="" />
+                        )}
+                        <p className="user-link">
+                          {i.firstName} {i.lastName}
+                        </p>
+                        <span className="user-subhead">{i.userType}</span>
+                      </td>
+                      <td>{i.email}</td>
+
+                      <td style={{ textAlign: "center" }}>
+                        {i.userType === "Regular User" && (
+                          <span style={{ fontWeight: "normal" }}>None</span>
+                        )}
+                        {i.userType === "Subscribed User" && (
+                          <span style={{ fontWeight: "normal" }}>Yes</span>
+                        )}
+                        {i.userType === "Super Admin" && (
+                          <span style={{ fontWeight: "normal" }}>Owner</span>
+                        )}
+                      </td>
+                      <td>
+                        <button
+                          className="table-link danger"
+                          onClick={() =>
+                            deleteUser(i._id, i.firstName, i.lastName)
+                          }
+                        >
+                          <span className="fa-stack">
+                            <i className="fa fa-square fa-stack-2x"></i>
+                            <i className="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

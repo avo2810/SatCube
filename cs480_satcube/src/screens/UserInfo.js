@@ -3,6 +3,8 @@ import "./UserInfo.css";
 import axios from "axios";
 
 const UserInfo = () => {
+  const initialProfileImage =
+    "https://bootdey.com/img/Content/avatar/avatar7.png";
   const [userData, setUserData] = useState("");
   const [regularUser, setRegularUser] = useState(false);
   const [subscribedUser, setSubscribedUser] = useState(false);
@@ -12,6 +14,7 @@ const UserInfo = () => {
   const [lastName, setLastName] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [profileUploadImage, setProfileUploadImage] = useState("");
 
   const createSession = async () => {
     axios
@@ -34,10 +37,10 @@ const UserInfo = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "userData");
         setUserData(data.data);
         setFirstName(data.data.firstName);
         setLastName(data.data.lastName);
+        setProfileUploadImage(data.data.profileImage.url);
 
         //Identify the type of user to configure the subscription accordingly
         if (data.data.userType === "Regular User") {
@@ -51,6 +54,28 @@ const UserInfo = () => {
         }
       });
   }, []);
+
+  if (!profileUploadImage) {
+    setProfileUploadImage(initialProfileImage);
+  }
+
+  const handleProfileImageUpload = (e) => {
+    const file = e.target.files[0];
+
+    transformFile(file);
+  };
+
+  const transformFile = (file) => {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setProfileUploadImage(reader.result);
+      };
+    } else {
+      setProfileUploadImage("");
+    }
+  };
 
   const cancelSubscription = async () => {
     const confirmation = window.confirm(
@@ -87,6 +112,7 @@ const UserInfo = () => {
           firstName,
           lastName,
           newPassword,
+          profileUploadImage,
         })
         .then((res) => {
           alert("Successfully update profile information.");
@@ -106,8 +132,7 @@ const UserInfo = () => {
               style={{ width: 500, borderRadius: "50%" }}
               title=""
               className="img-circle img-thumbnail isTooltip"
-              src="https://bootdey.com/img/Content/avatar/avatar7.png"
-              data-original-title="Usuario"
+              src={profileUploadImage}
             />
             {/* TODO: Allow user to edit information */}
             <button className="edit btn btn-link" onClick={() => setEdit(true)}>
@@ -229,17 +254,19 @@ const UserInfo = () => {
                 style={{ width: 500, borderRadius: "50%" }}
                 title=""
                 className="img-circle img-thumbnail isTooltip"
-                src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                data-original-title="Usuario"
+                src={profileUploadImage}
               />
               {/* <!-- Profile picture help block--> */}
-              <div className="small font-italic text-muted mb-3 image">
+              {/* <div className="small font-italic text-muted mb-3 image">
                 JPG or PNG no larger than 5 MB
+              </div> */}
+              <div className="image-button">
+                <input
+                  type="file"
+                  accept="image/"
+                  onChange={handleProfileImageUpload}
+                />
               </div>
-
-              <button className="btn btn-primary image-button" type="button">
-                Upload Image
-              </button>
             </div>
             <div className="col-md-6">
               <h2>Information</h2>

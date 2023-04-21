@@ -20,7 +20,6 @@ const MainNavigation = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "userData");
         if (data.data.userType == "Super Admin") {
           setAdmin(true);
         }

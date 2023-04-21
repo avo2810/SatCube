@@ -28,7 +28,7 @@ img {
 }
 
 .edit {
-  margin-left: 3.5em;
+  margin-left: 4em;
   font-size: 18px;
   margin-top: 1em;
 }
@@ -53,4 +53,8 @@ img {
 .cancel {
   margin-top: 20px;
   margin-left: 3em;
+}
+.image-button {
+  margin-top: 1em;
+  margin-left: 10em;
 }

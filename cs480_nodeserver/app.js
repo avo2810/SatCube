@@ -5,14 +5,24 @@ app.use(express.json());
 const cors = require("cors");
 app.use(cors());
 const bcrypt = require("bcryptjs");
-
 //import ejs to allow using html in node js
+
+require("dotenv").config();
+const cloudinaryModule = require("cloudinary");
+
+const cloudinary = cloudinaryModule.v2;
+
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
-require("dotenv").config();
 
 const jwt = require("jsonwebtoken");
 var nodemailer = require("nodemailer");
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Stripe payment
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -84,7 +94,7 @@ app.post("/userData", async (req, res) => {
   const { token } = req.body;
   try {
     const user = jwt.verify(token, JWT_SECRET);
-    console.log(user);
+
     const useremail = user.email;
     User.findOne({ email: useremail })
       .then((data) => {
@@ -143,7 +153,7 @@ app.post("/forgot-password", async (req, res) => {
 //they will get directed automatically to app.post("/reset-password/:id/:token")
 app.get("/reset-password/:id/:token", async (req, res) => {
   const { id, token } = req.params;
-  console.log(req.params);
+
   const oldUser = await User.findOne({ _id: id });
   if (!oldUser) {
     return res.json({ status: "User Not Exists!!" });
@@ -363,20 +373,33 @@ app.post("/edit-profile", async (req, res) => {
   const newPassword = req.body.newPassword;
   const newFirstName = req.body.firstName;
   const newLastName = req.body.lastName;
+  const uploadImage = req.body.profileUploadImage;
   let updatedFields, encryptedPassword;
+  let newImage = "";
+
   if (newPassword) {
     encryptedPassword = await bcrypt.hash(newPassword, 10);
+  }
+  if (uploadImage) {
+    const uploadRes = await cloudinary.uploader.upload(uploadImage, {
+      upload_preset: "satcube-profile-image",
+    });
+    if (uploadRes) {
+      newImage = uploadRes;
+    }
   }
   if (!newPassword) {
     updatedFields = {
       firstName: newFirstName,
       lastName: newLastName,
+      profileImage: newImage,
     };
   } else {
     updatedFields = {
       firstName: newFirstName,
       lastName: newLastName,
       password: encryptedPassword,
+      profileImage: newImage,
     };
   }
   await User.findOneAndUpdate(

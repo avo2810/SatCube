@@ -9,6 +9,7 @@ const UserDetailsSchema = new mongoose.Schema(
     userType: String,
     isSubscribed: { type: Boolean, default: false },
     stripeCustomerId: String,
+    profileImage: Object,
   },
   {
     collection: "UserInformation",
