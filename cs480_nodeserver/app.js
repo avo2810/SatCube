@@ -13,6 +13,7 @@ const cloudinaryModule = require("cloudinary");
 const cloudinary = cloudinaryModule.v2;
 
 app.set("view engine", "ejs");
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 const jwt = require("jsonwebtoken");

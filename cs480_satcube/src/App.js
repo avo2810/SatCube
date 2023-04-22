@@ -13,6 +13,9 @@ import UserLists from "./screens/UserLists";
 import DashboardRoot from "./screens/DashboardRoot";
 import Success from "./components/Success";
 import Cancel from "./components/Cancel";
+import DashgraphOne from "./screens/DashgraphOne";
+import DashgraphTwo from "./screens/DashgraphTwo";
+import DashgraphThree from "./screens/DashgraphThree";
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -37,6 +40,9 @@ function App() {
             <Route path="/success" element={<Success />} />
             <Route path="/cancel" element={<Cancel />} />
             <Route path="/user-lists" element={<UserLists />} />
+            <Route path="/dashgraphone" element={<DashgraphOne />} />
+            <Route path="/dashgraphtwo" element={<DashgraphTwo />} />
+            <Route path="/dashgraphthree" element={<DashgraphThree />} />
           </Route>
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/sign-up" element={<SignUp />} />
