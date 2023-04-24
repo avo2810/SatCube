@@ -64,7 +64,7 @@ const Dashboard = () => {
                     <td>tar -zxvf FOXDB.tar.gz</td>
                     <td>
                       <a
-                        href="http://localhost:8888/voila/render/fox1c%202018.ipynb"
+                        href="/dashgraphone"
                         target="_blank"
                       >
                         FOX1C
@@ -86,7 +86,7 @@ const Dashboard = () => {
                     <td>tar -zxvf FOXDB.tar.gz</td>
                     <td>
                       <a
-                        href="http://localhost:8889/voila/render/Fox1d.ipynb"
+                        href="/dashgraphtwo"
                         target="_blank"
                       >
                         FOX1D
@@ -108,7 +108,7 @@ const Dashboard = () => {
                     <td>tar -zxvf FOXDB.tar.gz</td>
                     <td>
                       <a
-                        href="http://localhost:8890/voila/render/Fox%201e.ipynb"
+                        href="/dashgraphthree"
                         target="_blank"
                       >
                         FOX1E

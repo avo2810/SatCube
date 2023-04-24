@@ -1,0 +1,49 @@
+import "../styles/graphstyle.css"
+import img from "../Images/graph 3.PNG"
+
+export default function DashgraphOne() {
+
+
+
+    return <><div className="wrapper">
+                    <h1>Fox 1C</h1>
+    <div className="container">
+        <div className="box">
+            <img src={img}/>
+            <h3>Fox1C 2018</h3>
+            <a href="http://localhost:8080/graphs/fox1c18.html" className="btn">View Analysis</a>
+        </div>
+        <div className="box">
+            <img src={img}/>
+            <h3>Fox1C 2019</h3>
+            <a href="http://localhost:8080/graphs/fox1c19.html" className="btn">View Analysis</a>
+        </div>
+        <div className="box">
+            <img src={img}/>
+            <h3>Fox1C 2020</h3>
+            <a href="http://localhost:8080/graphs/fox1c20.html" className="btn">View Analysis</a>
+        </div>
+        <div className="box">
+            <img src={img}/>
+            <h3>Fox1C 2021</h3>
+            <a href="http://localhost:8080/graphs/fox1c21.html" className="btn">View Analysis</a>
+        </div>
+        <div className="box">
+            <img src={img}/>
+            <h3>Fox1C 2022</h3>
+            <a href="http://localhost:8080/graphs/fox1c22.html" className="btn">View Analysis</a>
+        </div>
+    
+        <div className="box">
+            <img src={img}/>
+            <h3>SatNOGS</h3>
+            <a href="https://replit.com/@AnthonyCucinell/CUBESAT-Directory?v=1" className="btn">SatNOGS Satellites</a>
+        </div>
+        <div className="box">
+            <img src={img}/>
+            <h3>Fox1E</h3>
+            <a href="https://fox1e--anthonycucinell.repl.co/" className="btn">Fox1E APU CubeSat Team</a>
+        </div>
+    </div>
+</div>   </>
+}
