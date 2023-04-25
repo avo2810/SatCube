@@ -21,6 +21,7 @@
   color: #0073b7;
   font-weight: 700;
   font-size: 22px;
+  float: left;
 }
 
 .text:hover,

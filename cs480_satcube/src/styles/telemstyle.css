@@ -1,0 +1,45 @@
+style{
+flex: 1;
+background-color: 'grey';
+align-items: 'center';
+padding-top: 50,
+}
+
+title{
+font-size: 20;
+align-items: 'center';
+margin-bottom: 20px;
+font-weight: bold;
+}
+
+s{
+max-height: '100%';
+width: '90%',
+};
+    table{
+    border-width: 1;
+    border-color: '#000';
+    max-width: 900px;
+    margin: 0 auto;
+    };
+
+
+    header{
+    flex-direction: 'row';
+    background-color: '#eee'
+    };
+    head{
+    padding: 10;
+    border-width: 1;
+    border-color: '#000';
+    flex: 1,
+    };
+    g{
+    flex-direction: 'row';
+    };
+    line{
+    padding: 10;
+    border-width: 1;
+    border-color: '#000';
+    flex: 1
+    }

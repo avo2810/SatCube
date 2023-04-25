@@ -4,6 +4,7 @@ import "./App.css";
 import "@stripe/stripe-js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+
 import Signin from "./screens/Signin";
 import SignUp from "./screens/Signup";
 import Dashboard from "./screens/Dashboard";
@@ -16,10 +17,15 @@ import Cancel from "./components/Cancel";
 import DashgraphOne from "./screens/DashgraphOne";
 import DashgraphTwo from "./screens/DashgraphTwo";
 import DashgraphThree from "./screens/DashgraphThree";
+import Journal from "./screens/Journal";
+import Telemetry from "./screens/Telemetry";
+import DashgraphFour from "./screens/DashgraphFour"
+
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
   return (
+    
     <Router>
       <div className="App">
         <Routes>
@@ -43,6 +49,10 @@ function App() {
             <Route path="/dashgraphone" element={<DashgraphOne />} />
             <Route path="/dashgraphtwo" element={<DashgraphTwo />} />
             <Route path="/dashgraphthree" element={<DashgraphThree />} />
+            <Route path="/dashgraphfour" element={<DashgraphFour />} />
+            <Route path="/journal" element={<Journal />} />
+            <Route path="/telemetry" element={<Telemetry />} />
+
           </Route>
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/sign-up" element={<SignUp />} />
@@ -51,7 +61,7 @@ function App() {
         </Routes>
       </div>
     </Router>
-  );
+   );
 }
 
 export default App;
