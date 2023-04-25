@@ -1,0 +1,81 @@
+body, h2,h3,h1{
+    margin: 0;
+    padding: 0;
+    background: rgb(167, 164, 164);
+}
+
+
+.card {
+   padding: 0.5rem 1rem;
+   border: 1px solid #eee;
+   border-radius: 3px;
+   margin: .3rem 0;
+
+}
+
+.text-center {
+    text-align: center;
+}
+
+textarea {
+  width: 25%;
+}
+
+.text-l{
+   text-align: center;
+}
+
+p{
+    color: rgb(62, 62, 62);
+    font-family: Arial, Helvetica, sans-serif;
+}
+small{
+    color: #ccc;
+}
+h2{
+    text-align: center;
+}
+label{
+    display: inline-block;
+    margin-bottom: 10px;
+     
+}
+input{
+    width:25%
+}
+s{
+margin-top: auto;
+}
+.wrapper{
+    background-color: #ccc;
+}
+.journalForm{
+    max-width: 500px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    
+}
+
+fieldset{
+    display: flex;
+}
+
+fieldset label{
+    width: 25%;
+}
+fieldset input, fieldset textarea{
+    width:  74%;
+    padding: 5px;
+    border-radius: 10px;
+}
+fieldset input[type=submit]{
+    margin: 0 auto;
+}
+button{
+  width: 15%;
+}
+
+

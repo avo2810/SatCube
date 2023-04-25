@@ -7,7 +7,7 @@ export default function DashgraphOne() {
 
     return <><div className="wrapper">
                     <h1>Fox 1C</h1>
-    <div className="container">
+        <div className="container">
         <div className="box">
             <img src={img}/>
             <h3>Fox1C 2018</h3>

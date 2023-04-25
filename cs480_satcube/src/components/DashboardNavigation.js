@@ -33,18 +33,30 @@ const MainNavigation = () => {
   return (
     <header className="header">
       <nav>
-        <div className="wrapper">
+        <div>
           <ul className="list">
             <li>
               <Link to="/dashboard" className="text">
-                Dashboard
+              Dashboard
               </Link>
             </li>
             <li>
               <Link to="/userInfo" className="text">
-                User Information
+              User Information
               </Link>
             </li>
+            <li>
+              <Link to="/journal" className="text">
+              Journal
+              </Link>
+            </li>
+            
+            <li>
+              <Link to="/telemetry" className="text">
+              Parse File
+              </Link>
+            </li>
+            
             {admin ? (
               <li>
                 <Link to="/user-lists" className="text">
@@ -52,10 +64,14 @@ const MainNavigation = () => {
                 </Link>
               </li>
             ) : null}
+            <li>
+              <button onClick={logOut} className="logout">
+              Log Out
+                </button>
+            </li>
+
           </ul>
-          <button onClick={logOut} className="logout">
-            Log Out
-          </button>
+          
         </div>
       </nav>
     </header>

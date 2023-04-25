@@ -131,8 +131,8 @@ const Dashboard = () => {
                     </td>
                     <td>tar -zxvf FOXDB.tar.gz </td>
                     <td>
-                      <a href="#" target={"_blank"}>
-                        Link
+                      <a href="/dashgraphfour" target="_blank">
+                        RADFXSAT
                       </a>
                     </td>
                   </tr>

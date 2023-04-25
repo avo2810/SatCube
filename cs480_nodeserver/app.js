@@ -44,7 +44,9 @@ mongoose
   .catch((e) => console.log(e));
 
 require("./models/userDetails");
+require("./models/postSchema")
 const User = mongoose.model("UserInformation");
+const Post = mongoose.model("Post")
 
 app.post("/register", async (request, response) => {
   const { firstName, lastName, email, password, userType } = request.body;
@@ -409,9 +411,33 @@ app.post("/edit-profile", async (req, res) => {
     { new: true }
   );
   // Send a success response
-  res.send("Successfully unpdate user information.");
+  res.send("Successfully update user information.");
 });
 
+app.post("/api/post", async (req, res)=>{
+  console.log(req.body)
+  try{
+    const result = await Post.create({
+      title: req.body.title,
+      body: req.body.body
+    })
+
+    res.json(result)
+  } catch(e){
+    console.log(e)
+  }
+});
+
+app.get("/api/post", async (req, res)=>{
+  try{
+    const result = await Post.find({})
+
+    res.json(result)
+  } catch(e){
+    console.log(e)
+  }
+})
+
 app.listen(8080, () => {
-  console.log("Server Started");
+  console.log("Server Started" , 8080);
 });
