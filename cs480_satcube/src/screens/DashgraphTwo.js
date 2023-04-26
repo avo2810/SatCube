@@ -9,7 +9,7 @@ export default function DashgraphTwo() {
         <div className="container">
           <div className="box">
             <img src={img} />
-            <h3>Fox1D 2018</h3>
+            <h4>Fox1D 2018</h4>
             <a
               href="http://localhost:8080/graphs/fox1d18.html"
               className="graph-btn"
@@ -19,7 +19,7 @@ export default function DashgraphTwo() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1D 2019</h3>
+            <h4>Fox1D 2019</h4>
             <a
               href="http://localhost:8080/graphs/fox1d19.html"
               className="graph-btn"
@@ -29,7 +29,7 @@ export default function DashgraphTwo() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1D 2020</h3>
+            <h4>Fox1D 2020</h4>
             <a
               href="http://localhost:8080/graphs/fox1d20.html"
               className="graph-btn"
@@ -39,7 +39,7 @@ export default function DashgraphTwo() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1D 2021</h3>
+            <h4>Fox1D 2021</h4>
             <a
               href="http://localhost:8080/graphs/fox1d21.html"
               className="graph-btn"
@@ -49,7 +49,7 @@ export default function DashgraphTwo() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1D 2022</h3>
+            <h4>Fox1D 2022</h4>
             <a
               href="http://localhost:8080/graphs/fox1d22.html"
               className="graph-btn"

@@ -9,7 +9,7 @@ export default function DashgraphThree() {
         <div className="container">
           <div className="box">
             <img src={img} />
-            <h3>Fox1E 2021</h3>
+            <h4>Fox1E 2021</h4>
             <a
               href="http://localhost:8080/graphs/fox1e21.html"
               className="graph-btn"
@@ -19,7 +19,7 @@ export default function DashgraphThree() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1E 2022</h3>
+            <h4>Fox1E 2022</h4>
             <a
               href="http://localhost:8080/graphs/fox1e22.html"
               className="graph-btn"
@@ -29,7 +29,7 @@ export default function DashgraphThree() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1E 2023</h3>
+            <h4>Fox1E 2023</h4>
             <a
               href="http://localhost:8080/graphs/fox1e23.html"
               className="graph-btn"
@@ -38,7 +38,7 @@ export default function DashgraphThree() {
             </a>
           </div>
         </div>
-      </div>
+      </div>{" "}
     </section>
   );
 }

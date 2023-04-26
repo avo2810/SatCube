@@ -40,7 +40,10 @@ const UserInfo = () => {
         setUserData(data.data);
         setFirstName(data.data.firstName);
         setLastName(data.data.lastName);
-        setProfileUploadImage(data.data.profileImage.url);
+        if (data.data.profileImage) {
+          setProfileUploadImage(data.data.profileImage.url);
+        }
+        console.log(data.data.userType);
 
         //Identify the type of user to configure the subscription accordingly
         if (data.data.userType === "Regular User") {

@@ -37,26 +37,26 @@ const MainNavigation = () => {
           <ul className="list">
             <li>
               <Link to="/dashboard" className="text">
-              Dashboard
+                Dashboard
               </Link>
             </li>
             <li>
               <Link to="/userInfo" className="text">
-              User Information
+                User Information
               </Link>
             </li>
             <li>
               <Link to="/journal" className="text">
-              Journal
+                Journal
               </Link>
             </li>
-            
+
             <li>
               <Link to="/telemetry" className="text">
-              Parse File
+                Parse File
               </Link>
             </li>
-            
+
             {admin ? (
               <li>
                 <Link to="/user-lists" className="text">
@@ -66,12 +66,10 @@ const MainNavigation = () => {
             ) : null}
             <li>
               <button onClick={logOut} className="logout">
-              Log Out
-                </button>
+                Log Out
+              </button>
             </li>
-
           </ul>
-          
         </div>
       </nav>
     </header>

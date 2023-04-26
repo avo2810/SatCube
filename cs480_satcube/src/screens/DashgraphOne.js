@@ -9,7 +9,7 @@ export default function DashgraphOne() {
         <div className="container">
           <div className="box">
             <img src={img} />
-            <h3>Fox1C 2018</h3>
+            <h4>Fox1C 2018</h4>
             <a
               href="http://localhost:8080/graphs/fox1c18.html"
               className="graph-btn"
@@ -19,7 +19,7 @@ export default function DashgraphOne() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1C 2019</h3>
+            <h4>Fox1C 2019</h4>
             <a
               href="http://localhost:8080/graphs/fox1c19.html"
               className="graph-btn"
@@ -29,7 +29,7 @@ export default function DashgraphOne() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1C 2020</h3>
+            <h4>Fox1C 2020</h4>
             <a
               href="http://localhost:8080/graphs/fox1c20.html"
               className="graph-btn"
@@ -39,7 +39,7 @@ export default function DashgraphOne() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1C 2021</h3>
+            <h4>Fox1C 2021</h4>
             <a
               href="http://localhost:8080/graphs/fox1c21.html"
               className="graph-btn"
@@ -49,7 +49,7 @@ export default function DashgraphOne() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1C 2022</h3>
+            <h4>Fox1C 2022</h4>
             <a
               href="http://localhost:8080/graphs/fox1c22.html"
               className="graph-btn"
@@ -60,7 +60,7 @@ export default function DashgraphOne() {
 
           <div className="box">
             <img src={img} />
-            <h3>SatNOGS</h3>
+            <h4>SatNOGS</h4>
             <a
               href="https://replit.com/@AnthonyCucinell/CUBESAT-Directory?v=1"
               className="graph-btn"
@@ -70,7 +70,7 @@ export default function DashgraphOne() {
           </div>
           <div className="box">
             <img src={img} />
-            <h3>Fox1E</h3>
+            <h4>Fox1E</h4>
             <a
               href="https://fox1e--anthonycucinell.repl.co/"
               className="graph-btn"

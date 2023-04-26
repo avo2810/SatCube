@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Dashboard.css";
+import axios from "axios";
 
 const Dashboard = () => {
   const [userData, setUserData] = useState("");
-  const [admin, setAdmin] = useState(false);
+  const [owner, setOwner] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
+
+  const createSession = async () => {
+    axios
+      .post("http://localhost:8080/create-checkout-session", { userData })
+      .then((res) => (window.location.href = res.data.url))
+      .catch((err) => console.error(err));
+  };
 
   useEffect(() => {
     fetch("http://localhost:8080/userData", {
@@ -22,7 +31,10 @@ const Dashboard = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.data.userType == "Super Admin") {
-          setAdmin(true);
+          setOwner(true);
+        }
+        if (data.data.userType == "Subscribed User") {
+          setSubscribed(true);
         }
         setUserData(data.data);
       });
@@ -63,12 +75,18 @@ const Dashboard = () => {
                     <td>wget https://www.amsat.org/tlm/fox1c/FOXDB.tar.gz</td>
                     <td>tar -zxvf FOXDB.tar.gz</td>
                     <td>
-                      <a
-                        href="/dashgraphone"
-                        target="_blank"
-                      >
-                        FOX1C
-                      </a>
+                      {owner || subscribed ? (
+                        <a href="/dashgraphone" target="_blank">
+                          FOX1C
+                        </a>
+                      ) : (
+                        <button
+                          className="btn btn-link"
+                          onClick={() => createSession()}
+                        >
+                          Subscribe To See Content
+                        </button>
+                      )}
                     </td>
                   </tr>
                   <tr className="align-middle">
@@ -85,12 +103,18 @@ const Dashboard = () => {
                     <td>wget https://www.amsat.org/tlm/fox1d/FOXDB.tar.gz</td>
                     <td>tar -zxvf FOXDB.tar.gz</td>
                     <td>
-                      <a
-                        href="/dashgraphtwo"
-                        target="_blank"
-                      >
-                        FOX1D
-                      </a>
+                      {owner || subscribed ? (
+                        <a href="/dashgraphtwo" target="_blank">
+                          FOX1D
+                        </a>
+                      ) : (
+                        <button
+                          className="btn btn-link"
+                          onClick={() => createSession()}
+                        >
+                          Subscribe To See Content
+                        </button>
+                      )}
                     </td>
                   </tr>
                   <tr className="align-middle">
@@ -107,12 +131,18 @@ const Dashboard = () => {
                     <td>wget https://www.amsat.org/tlm/fox1e/FOXDB.tar.gz</td>
                     <td>tar -zxvf FOXDB.tar.gz</td>
                     <td>
-                      <a
-                        href="/dashgraphthree"
-                        target="_blank"
-                      >
-                        FOX1E
-                      </a>
+                      {owner || subscribed ? (
+                        <a href="/dashgraphthree" target="_blank">
+                          FOX1E
+                        </a>
+                      ) : (
+                        <button
+                          className="btn btn-link"
+                          onClick={() => createSession()}
+                        >
+                          Subscribe To See Content
+                        </button>
+                      )}
                     </td>
                   </tr>
                   <tr className="align-middle last-row">
@@ -131,9 +161,18 @@ const Dashboard = () => {
                     </td>
                     <td>tar -zxvf FOXDB.tar.gz </td>
                     <td>
-                      <a href="/dashgraphfour" target="_blank">
-                        RADFXSAT
-                      </a>
+                      {owner || subscribed ? (
+                        <a href="/dashgraphfour" target="_blank">
+                          RADFXSAT
+                        </a>
+                      ) : (
+                        <button
+                          className="btn btn-link"
+                          onClick={() => createSession()}
+                        >
+                          Subscribe To See Content
+                        </button>
+                      )}
                     </td>
                   </tr>
                 </tbody>

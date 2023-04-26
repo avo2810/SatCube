@@ -1,144 +1,129 @@
-import { useEffect, useState } from "react"
-import "../styles/journalstyle.css"
-import "../script.js"
+import { useEffect, useState } from "react";
+import "../styles/journalstyle.css";
+// import "../script.js"
 import { useNavigate } from "react-router-dom";
 
+export default function Journal() {
+  const [data, setData] = useState([]);
+  const [formTitle, setFormTitle] = useState([]);
+  const [formBody, setFormBody] = useState([]);
+  const [targetId, setTargetId] = useState(false);
+  const navigate = useNavigate();
 
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:8080/api/post");
+    console.log("??", response);
+    const journalData = await response.json();
+    setData(journalData);
+    console.log(journalData);
+  };
 
-export default function Journal(){
+  //runs on load once
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    const [data, setData] = useState([]);
-    const [formTitle, setFormTitle] = useState([]);
-    const [formBody, setFormBody] = useState([]);
-    const [targetId, setTargetId] = useState(false)
-    const navigate = useNavigate();
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get("id");
 
-
-
-    const fetchData = async ()=>{
-        const response = await fetch("http://localhost:8080/api/post");
-        console.log("??", response)
-        const journalData = await response.json();
-        setData(journalData);
-        console.log(journalData);
-
-
+    if (id !== undefined) {
+      setTargetId(id);
     }
+    console.log("get id", id);
+  });
 
-    //runs on load once
-    useEffect(()=>{
-        
-       
+  const formHandler = async (e) => {
+    e.preventDefault();
 
+    const res = await fetch("http://localhost:8080/api/post", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: e.target.title.value,
+        body: e.target.body.value,
+      }),
+    });
 
-        fetchData();
+    console.log("result:", res);
+    fetchData();
+  };
 
- 
+  return (
+    <div className="graph-wrapper">
+      <header className="text-center">
+        <h2 className="journal-header">Journal</h2>
+      </header>
 
-    },[])
-
-    useEffect(()=>{
-        const queryParams = new URLSearchParams(window.location.search);
-        const id = queryParams.get("id");
-
-        if(id!== undefined){
-            setTargetId(id)
-        }
-        console.log("get id",id)
-
-    })
-
-    const formHandler = async (e) => {
-        e.preventDefault();
-
-        console.log(e.target.title.value, e.target.body.value);
-        const res = await fetch("http://localhost:8080/api/post", {
-            method: "POST", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                title: e.target.title.value,
-                body: e.target.body.value
-            }), 
-        });
-
-        console.log("result:", res)
-        fetchData();
-
-    }
-
-
-    return <div className="wrapper">
-        <header className="text-center">
-       <h2>
-          Journal
-       </h2>
-      
-    </header>
-    
-
-
-        {
-            targetId ? <>
-
-         <div >
-           { data.map(d=>{
-
-                if(targetId == d._id){
-                    return <div class="card" key={d._id} onClick={()=>navigate("/journal?id=" + d._id)}>
-                        <h4>{d.title} </h4>
-                
-                        <p>{d.body}</p>
-                        <a href={`mailto:?subject=${d.title}&body=${d.body}`}>Email me</a>
-        
-                        </div>
-
-                }
-               
-            })
-        }
-         
-        </div>
-        
-            
-            </>: <>
-            <div >
-            <form class="journalForm" onSubmit={formHandler}>
-            <fieldset>
-                <label>Satellite Name</label>
-                <input type="text" name="title"/>
-            </fieldset>
-      
-            <fieldset>
-                <label>Entry</label>
-                <textarea name="body"/>
-            
-            </fieldset>
-            <fieldset>
-                <label></label>   
-            <input className="button" type="submit" value="Create Journal" ></input>
-            </fieldset>
-        </form>
-    </div>
-    <br/><br/>
-    
-    <div className="wrapper">
-        {
-            data.map(d=>{
-                return <div class="card" key={d._id} onClick={()=>navigate("/journal?id=" + d._id)}>
+      {targetId ? (
+        <section className="journal-body">
+          <div>
+            {data.map((d) => {
+              if (targetId == d._id) {
+                return (
+                  <div
+                    className="journal-card"
+                    key={d._id}
+                    onClick={() => navigate("/journal?id=" + d._id)}
+                  >
                     <h4>{d.title} </h4>
-                
-                <p>{d.body}</p>
-                </div>
-            })
-        }
-        
-    </div>
-            </>
-        }
-       
-</div>
-}
 
+                    <p>{d.body}</p>
+                    <a href={`mailto:?subject=${d.title}&body=${d.body}`}>
+                      Email me
+                    </a>
+                  </div>
+                );
+              }
+            })}
+          </div>
+        </section>
+      ) : (
+        <section className="journal-body">
+          <div>
+            <form className="journalForm" onSubmit={formHandler}>
+              <fieldset>
+                <label>Satellite Name</label>
+                <input type="text" name="title" />
+              </fieldset>
+
+              <fieldset>
+                <label>Entry</label>
+                <textarea name="body" />
+              </fieldset>
+              <fieldset>
+                <label></label>
+                <input
+                  className="create-button"
+                  type="submit"
+                  value="Create Journal"
+                ></input>
+              </fieldset>
+            </form>
+          </div>
+          <br />
+          <br />
+
+          <div className="journal-wrapper">
+            {data.map((d) => {
+              return (
+                <div
+                  className="journal-card"
+                  key={d._id}
+                  onClick={() => navigate("/journal?id=" + d._id)}
+                >
+                  <h4>{d.title} </h4>
+
+                  <p>{d.body}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+    </div>
+  );
+}
