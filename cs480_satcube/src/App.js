@@ -2,7 +2,8 @@ import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "@stripe/stripe-js";
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 
 import Signin from "./screens/Signin";
 import SignUp from "./screens/Signup";
@@ -13,36 +14,54 @@ import UserLists from "./screens/UserLists";
 import DashboardRoot from "./screens/DashboardRoot";
 import Success from "./components/Success";
 import Cancel from "./components/Cancel";
+import DashgraphOne from "./screens/DashgraphOne";
+import DashgraphTwo from "./screens/DashgraphTwo";
+import DashgraphThree from "./screens/DashgraphThree";
+import Journal from "./screens/Journal";
+import Telemetry from "./screens/Telemetry";
+import DashgraphFour from "./screens/DashgraphFour"
+
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
   return (
+    
     <Router>
       <div className="App">
         <Routes>
           <Route
-            exact
             path="/"
             // This one is to verrify if the user is successfully logged in,
             // if so, we can just show the dashboard, if not, show the sign-in page
-            element={isLoggedIn ? <DashboardRoot /> : <Signin />}
+            element={
+              isLoggedIn ? (
+                <DashboardRoot children={<Dashboard />} />
+              ) : (
+                <Signin />
+              )
+            }
           >
-          
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/userInfo" element={<UserInfo />} />
             <Route path="/success" element={<Success />} />
             <Route path="/cancel" element={<Cancel />} />
             <Route path="/user-lists" element={<UserLists />} />
+            <Route path="/dashgraphone" element={<DashgraphOne />} />
+            <Route path="/dashgraphtwo" element={<DashgraphTwo />} />
+            <Route path="/dashgraphthree" element={<DashgraphThree />} />
+            <Route path="/dashgraphfour" element={<DashgraphFour />} />
+            <Route path="/journal" element={<Journal />} />
+            <Route path="/telemetry" element={<Telemetry />} />
+
           </Route>
           <Route path="/sign-in" element={<Signin />} />
           <Route path="/sign-up" element={<SignUp />} />
-          
+
           <Route path="/forgot-password" element={<ResetPassword />} />
-          
         </Routes>
       </div>
     </Router>
-  );
+   );
 }
 
 export default App;

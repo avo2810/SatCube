@@ -1,0 +1,58 @@
+.container {
+  margin-top: 40px;
+  max-width: 1500px;
+}
+
+.card {
+  box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+}
+
+h3 {
+  padding: 1.25rem;
+}
+
+.card-header {
+  background-color: #f5f5f5;
+}
+
+.avatar.sm {
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 0.818125rem;
+}
+
+.table-nowrap .table td,
+.table-nowrap .table th {
+  white-space: nowrap;
+}
+
+.table > :not(caption) > * > * {
+  padding: 0.75rem 1.25rem;
+  border-bottom-width: 1px;
+}
+
+table th {
+  font-weight: 600;
+  background-color: #eeecfd !important;
+}
+
+.table thead > tr > th {
+  padding: 15px !important;
+}
+
+.table tbody > tr > td {
+  background-color: white !important;
+}
+
+.fa-arrow-up {
+  color: #00ced1;
+}
+
+.fa-arrow-down {
+  color: #ff00ff;
+}
+
+.table tbody > tr > td {
+  padding: 20px !important;
+  font-size: 1em;
+}

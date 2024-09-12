@@ -16,7 +16,7 @@ const SignUp = () => {
     } else {
       e.preventDefault();
       console.log(firstName, lastName, email, password);
-      fetch("http://localhost:4000/register", {
+      fetch("http://localhost:8080/register", {
         method: "POST",
         crossDomain: true,
         headers: {
@@ -45,11 +45,10 @@ const SignUp = () => {
   return (
     <div className="auth-wrapper">
       <div className="logo-wrapper-sm">
-        <img className="logo-sm" src={logo}/>
-        </div>
+        <img className="logo-sm" src={logo} />
+      </div>
 
       <div className="auth-inner">
-        
         <form onSubmit={handleSubmit}>
           <h3>Sign Up</h3>
           <div className="mb-3">

@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #505050 !important;
+  background: white !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -86,27 +86,23 @@ html,
   text-align: right;
 }
 
-.logo{
-width:500px;
-text-align: center;
-border-radius: 10px;
-
-
+.logo {
+  width: 500px;
+  text-align: center;
+  border-radius: 10px;
 }
-.logo-sm{
+.logo-sm {
   width: 400px;
   text-align: center;
- border-radius: 10px;
-
+  border-radius: 10px;
 }
 
-.logo-wrapper{
+.logo-wrapper {
   text-align: center;
   margin-top: 20px;
-
 }
 
-.logo-wrapper-sm{
+.logo-wrapper-sm {
   text-align: center;
   margin-top: 5px;
 }

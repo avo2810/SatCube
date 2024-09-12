@@ -12,7 +12,7 @@ export default class ResetPassword extends Component {
     e.preventDefault();
     const { email } = this.state;
     console.log(email);
-    fetch("http://localhost:4000/forgot-password", {
+    fetch("http://localhost:8080/forgot-password", {
       method: "POST",
       crossDomain: true,
       headers: {

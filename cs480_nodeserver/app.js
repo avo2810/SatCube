@@ -5,14 +5,25 @@ app.use(express.json());
 const cors = require("cors");
 app.use(cors());
 const bcrypt = require("bcryptjs");
-
 //import ejs to allow using html in node js
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
+
 require("dotenv").config();
+const cloudinaryModule = require("cloudinary");
+
+const cloudinary = cloudinaryModule.v2;
+
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 
 const jwt = require("jsonwebtoken");
 var nodemailer = require("nodemailer");
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Stripe payment
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -33,7 +44,9 @@ mongoose
   .catch((e) => console.log(e));
 
 require("./models/userDetails");
+require("./models/postSchema")
 const User = mongoose.model("UserInformation");
+const Post = mongoose.model("Post")
 
 app.post("/register", async (request, response) => {
   const { firstName, lastName, email, password, userType } = request.body;
@@ -84,7 +97,7 @@ app.post("/userData", async (req, res) => {
   const { token } = req.body;
   try {
     const user = jwt.verify(token, JWT_SECRET);
-    console.log(user);
+
     const useremail = user.email;
     User.findOne({ email: useremail })
       .then((data) => {
@@ -94,9 +107,6 @@ app.post("/userData", async (req, res) => {
         res.send({ status: "error", data: error });
       });
   } catch (error) {}
-});
-app.listen(4000, () => {
-  console.log("Server Started");
 });
 
 //Sprint 2
@@ -146,7 +156,7 @@ app.post("/forgot-password", async (req, res) => {
 //they will get directed automatically to app.post("/reset-password/:id/:token")
 app.get("/reset-password/:id/:token", async (req, res) => {
   const { id, token } = req.params;
-  console.log(req.params);
+
   const oldUser = await User.findOne({ _id: id });
   if (!oldUser) {
     return res.json({ status: "User Not Exists!!" });
@@ -227,7 +237,6 @@ app.post("/deleteUser", async (req, res) => {
 
 app.post("/create-checkout-session", async (req, res) => {
   const email = req.body.email;
-  // const user = await User.findOne({ email: email });
 
   const customer = await stripe.customers.create({
     email,
@@ -334,3 +343,101 @@ app.post(
     response.send().end();
   }
 );
+
+app.post("/cancel-subscription", async (req, res) => {
+  const customerID = req.body.stripeCustomerId;
+  const email = req.body.email;
+
+  const subscriptions = await stripe.subscriptions.list({
+    customer: customerID,
+    status: "active",
+    limit: 1,
+  });
+
+  const sub = subscriptions.data[0].id;
+
+  await stripe.subscriptions.update(sub, { cancel_at_period_end: true });
+
+  const updatedFields = {
+    userType: "Regular User",
+    isSubscribed: false,
+  };
+  await User.findOneAndUpdate(
+    { email },
+    { $set: updatedFields },
+    { new: true }
+  );
+  // Send a success response
+  res.send("Subscription cancelled successfully");
+});
+
+app.post("/edit-profile", async (req, res) => {
+  const email = req.body.email;
+  const newPassword = req.body.newPassword;
+  const newFirstName = req.body.firstName;
+  const newLastName = req.body.lastName;
+  const uploadImage = req.body.profileUploadImage;
+  let updatedFields, encryptedPassword;
+  let newImage = "";
+
+  if (newPassword) {
+    encryptedPassword = await bcrypt.hash(newPassword, 10);
+  }
+  if (uploadImage) {
+    const uploadRes = await cloudinary.uploader.upload(uploadImage, {
+      upload_preset: "satcube-profile-image",
+    });
+    if (uploadRes) {
+      newImage = uploadRes;
+    }
+  }
+  if (!newPassword) {
+    updatedFields = {
+      firstName: newFirstName,
+      lastName: newLastName,
+      profileImage: newImage,
+    };
+  } else {
+    updatedFields = {
+      firstName: newFirstName,
+      lastName: newLastName,
+      password: encryptedPassword,
+      profileImage: newImage,
+    };
+  }
+  await User.findOneAndUpdate(
+    { email },
+    { $set: updatedFields },
+    { new: true }
+  );
+  // Send a success response
+  res.send("Successfully update user information.");
+});
+
+app.post("/api/post", async (req, res)=>{
+  console.log(req.body)
+  try{
+    const result = await Post.create({
+      title: req.body.title,
+      body: req.body.body
+    })
+
+    res.json(result)
+  } catch(e){
+    console.log(e)
+  }
+});
+
+app.get("/api/post", async (req, res)=>{
+  try{
+    const result = await Post.find({})
+
+    res.json(result)
+  } catch(e){
+    console.log(e)
+  }
+})
+
+app.listen(8080, () => {
+  console.log("Server Started" , 8080);
+});
